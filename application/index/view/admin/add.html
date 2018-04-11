@@ -1,16 +1,28 @@
 <blockquote class="layui-elem-quote">添加用户</blockquote>
-<form class="layui-form" action="">
+<form class="layui-form" action="{:url('Admin/add')}" id='add_form'>
   <div class="layui-form-item">
     <label class="layui-form-label">用户名</label>
     <div class="layui-input-block">
       <input type="text" name="title" lay-verify="title" autocomplete="off" value="{$data.admin_name|default=''}" placeholder="请输入用户名" class="layui-input">
     </div>
   </div>
+   <div class="layui-form-item">
+    <label class="layui-form-label">密码</label>
+    <div class="layui-input-block">
+      <input type="password" name="password" lay-verify="password" id="password" autocomplete="off" value="{$data.password|default=''}" placeholder="请输入密码" class="layui-input">
+    </div>
+  </div>
+   <div class="layui-form-item">
+    <label class="layui-form-label">确认密码</label>
+    <div class="layui-input-block">
+      <input type="password" name="confirm_pwd" lay-verify="confirm_pwd" autocomplete="off" value="{$data.confirm_pwd|default=''}" placeholder="请输入确认密码" class="layui-input">
+    </div>
+  </div>
 
   <div class="layui-form-item">
     <label class="layui-form-label">角色</label>
     <div class="layui-input-block">
-      <select name="interest" lay-filter="aihao">
+      <select name="role" lay-filter="aihao" id="role">
         <option value=""></option>
         {volist name="role_list" id="role"}
         <option value="{$role.role_id}">{$role.role_name}</option>
@@ -43,15 +55,32 @@ layui.use(['form', 'layedit', 'laydate'], function(){
       if(value.length < 2){
         return '用户名不能小于2位';
       }
-    }
+    },
+    password:function(value){
+      if(value.length < 6){
+        return '密码不能小于6位';
+      }
+    },
+    confirm_pwd:function(value){
+      if($('#password').val() != value){
+        return '两次密码不一致';
+      }
+    },
   });
   
   //监听提交
   form.on('submit(demo1)', function(data){
-    layer.alert(JSON.stringify(data.field), {
-      title: '最终的提交信息'
-    })
-    return false;
+
+
+    if($('#role').val() == ''){
+      layer.msg('请选择角色',{icon:5,shift:6});
+      return false;
+    }
+
+    // layer.alert(JSON.stringify(data.field), {
+    //   title: '最终的提交信息'
+    // })
+    // return false;
   });
   
   
