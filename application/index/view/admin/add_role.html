@@ -1,0 +1,105 @@
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="/static/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<script type="text/javascript" src="/static/ztree/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="/static/ztree/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="/static/ztree/js/jquery.ztree.excheck.js"></script>
+<SCRIPT type="text/javascript">
+    <!--
+    var setting = {
+        check: {
+            enable: true,
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            onCheck: zTreeOnCheck,
+            onNodeCreated: zTreeOnNodeCreated
+            // beforeCheck: zTreeBeforeCheck
+        },
+    };
+
+    var zNodes ={$list};
+
+    $(document).ready(function(){
+        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+    });
+
+    function zTreeOnCheck(event, treeId, treeNode) {
+        var treeObj = $.fn.zTree.getZTreeObj(treeId);
+        setting.dataNodes = treeObj.getCheckedNodes(true);
+    };
+
+    function zTreeOnNodeCreated(event, treeId, treeNode) {
+        var treeObj = $.fn.zTree.getZTreeObj(treeId);
+        setting.dataNodes = treeObj.getCheckedNodes(true);
+    };
+
+    function get_nodes(){
+        console.log(setting.dataNodes);
+        return false;
+    }
+    //-->
+</SCRIPT>
+
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+  <legend>{$title}</legend>
+</fieldset>
+
+<form class="layui-form" action="{$url}" method="post" onsubmit="get_nodes()">
+  <div class="layui-form-item">
+    <label class="layui-form-label">角色名</label>
+    <div class="layui-input-inline">
+      <input type="text" name="role_name" lay-verify="role_name" value="{present name='role'}{$role.role_name}{/present}" autocomplete="off" placeholder="请输入角色名" class="layui-input">
+    </div>
+  </div>
+
+  <div class="content_wrap" style="padding: 0px 98px;">
+    <div class="zTreeDemoBackground left">
+      <ul id="treeDemo" class="ztree"></ul>
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</form>
+
+<!-- 示例-970 -->
+<ins class="adsbygoogle" style="display:inline-block;width:970px;height:90px" data-ad-client="ca-pub-6111334333458862" data-ad-slot="3820120620"></ins>
+
+
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+layui.use(['form', 'layedit', 'laydate'], function(){
+  var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+
+  //自定义验证规则
+  form.verify({
+    role_name: function(value){
+      if(value.length == ''){
+        return '角色名不能为空';
+      }
+    }
+  });
+
+  //监听提交
+  form.on('submit(demo1)', function(data){
+
+    // layer.alert(JSON.stringify(data.field), {
+    //   title: '最终的提交信息'
+    // })
+    // return false;
+  });
+
+
+});
+</script>
+

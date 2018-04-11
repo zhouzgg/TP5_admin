@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>layout 后台大布局 - Layui</title>
+  <link rel="stylesheet" href="/static/layui/css/layui.css">
+</head>
+<script src="/static/layui/layui.js"></script>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+  
+});
+</script>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">layui 后台布局</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    </ul>
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          {$username}
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a href="javascript:;">基本资料</a></dd>
+          <dd><a href="javascript:;">安全设置</a></dd>
+          <dd><a href="{:url('Login/login_out')}">退出</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item"><a href="">清除缓存</a></li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        {volist name="menu_list" id="vo"}
+          {present name="vo.child"}
+
+          <li class="layui-nav-item">
+            <a href="javascript:;">{$vo.function_name}</a>
+            <dl class="layui-nav-child">
+              {volist name="vo.child" id="child"}
+              <dd><a href="{:url($child.controller.'/'.$child.function)}">{$child.function_name}</a></dd>
+              {/volist}
+            </dl>
+          </li>
+          {else /}
+            <li class="layui-nav-item"><a href="{:url($vo.controller/$vo.function)}">{$vo.function_name}</a></li>
+          {/present}
+        
+        {/volist}
+      </ul>
+    </div>
+  </div>
+  <div class="layui-body" style="padding:15px;">

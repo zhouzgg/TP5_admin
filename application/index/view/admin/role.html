@@ -1,0 +1,17 @@
+<blockquote class="layui-elem-quote">用户列表</blockquote>
+<table class="layui-hide" id="test"></table>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+
+        table.render({
+            elem: '#test'
+            ,url:'{:url("admin/get_role_list")}'
+            ,cols: [[
+                {field:'role_id',  title: 'ID', sort: true}
+                ,{field:'role_name',  title: '角色名'}
+            ]]
+            ,page: true
+        });
+    });
+</script>

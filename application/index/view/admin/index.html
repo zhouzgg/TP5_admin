@@ -1,0 +1,19 @@
+<blockquote class="layui-elem-quote">用户列表</blockquote>
+<table class="layui-hide" id="test"></table>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+
+        table.render({
+            elem: '#test'
+            ,url:'{:url("admin/get_admin_list")}'
+            ,cols: [[
+                {field:'admin_id',  title: 'ID', sort: true}
+                ,{field:'admin_name',  title: '用户名'}
+                ,{field:'admin_pwd',  title: '密码'}
+                ,{field:'role_id',  title: '角色ID'}
+            ]]
+            ,page: true
+        });
+    });
+</script>
